@@ -19,12 +19,14 @@ class AuthController extends Controller
             'name'     => 'required|string|max:255',
             'email'    => 'required|email|unique:users,email',
             'password' => 'required|min:6',
+            'age'      => 'nullable|integer|min:0|max:150',
         ]);
 
         $user = User::create([
             'name'     => $data['name'],
             'email'    => $data['email'],
             'password' => Hash::make($data['password']),
+            'age'      => $data['age'] ?? null,
         ]);
 
         event(new Registered($user));
